@@ -1,2 +1,3 @@
-# TDM_Photography# TDM_Photography
-# TDMphotos
+# TDM_Photography#
+
+Needs media folder stored on google cloud storage
