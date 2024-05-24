@@ -1,0 +1,25 @@
+<<<<<<< HEAD
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+<form method="post" enctype="multipart/form-data" action="{% url 'admin:multiple-upload' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+{% endblock %}
+=======
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+<form method="post" enctype="multipart/form-data" action="{% url 'admin:multiple-upload' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+{% endblock %}
+>>>>>>> 219222571adccd7d5d2d69047a3d6c978ae18027

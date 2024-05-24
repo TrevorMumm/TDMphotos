@@ -1,0 +1,52 @@
+{% extends "gallery/base.html" %}
+
+{% block title %}All Photos{% endblock %}
+
+{% block content %}
+<h1>All Photos</h1>
+<div class="scrollable-container">
+    <div class="row">
+        {% for photo in photos %}
+        <div class="col-md-4 mb-4">
+            <div class="photo-container">
+                <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="img-fluid clickable-photo" data-src="{{ photo.image.url }}">
+                <div class="photo-title">{{ photo.title }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Fullscreen Image Container -->
+<div class="fullscreen-image" id="fullscreenImageContainer">
+    <img id="fullscreenImage" src="" alt="Full Size Image">
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const clickablePhotos = document.querySelectorAll('.clickable-photo');
+        const fullscreenImageContainer = document.getElementById('fullscreenImageContainer');
+        const fullscreenImage = document.getElementById('fullscreenImage');
+
+        clickablePhotos.forEach(photo => {
+            photo.addEventListener('click', function() {
+                const src = photo.getAttribute('data-src');
+                fullscreenImage.setAttribute('src', src);
+                fullscreenImageContainer.style.display = 'flex';
+            });
+        });
+
+        fullscreenImageContainer.addEventListener('click', function() {
+            fullscreenImageContainer.style.display = 'none';
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                fullscreenImageContainer.style.display = 'none';
+            }
+        });
+    });
+</script>
+{% endblock %}

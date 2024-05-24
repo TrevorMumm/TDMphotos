@@ -1,0 +1,81 @@
+<<<<<<< HEAD
+{% extends "admin/change_list.html" %}
+{% load static %}
+{% load admin_urls %}
+
+{% block content %}
+    <div class="sortable-container">
+        {{ block.super }}
+    </div>
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'adminsortable2/css/sortable.css' %}" />
+    <script src="{% static 'adminsortable2/js/plugins/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'adminsortable2/js/init.js' %}"></script>
+    <script>
+        window.addEventListener('load', function () {
+            $('.sortable-container tbody').sortable({
+                update: function (event, ui) {
+                    var sortedIDs = $(this).sortable('toArray');
+                    $.ajax({
+                        type: 'POST',
+                        url: '',  // Empty URL, since there's no endpoint to update
+                        data: {
+                            'sorted_ids': JSON.stringify(sortedIDs),
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        success: function (response) {
+                            // Handle success response
+                        },
+                        error: function (response) {
+                            // Handle error response
+                        }
+                    });
+                }
+            }).disableSelection();
+        });
+    </script>
+{% endblock %}
+=======
+{% extends "admin/change_list.html" %}
+{% load static %}
+{% load admin_urls %}
+
+{% block content %}
+    <div class="sortable-container">
+        {{ block.super }}
+    </div>
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'adminsortable2/css/sortable.css' %}" />
+    <script src="{% static 'adminsortable2/js/plugins/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'adminsortable2/js/init.js' %}"></script>
+    <script>
+        window.addEventListener('load', function () {
+            $('.sortable-container tbody').sortable({
+                update: function (event, ui) {
+                    var sortedIDs = $(this).sortable('toArray');
+                    $.ajax({
+                        type: 'POST',
+                        url: '',  // Empty URL, since there's no endpoint to update
+                        data: {
+                            'sorted_ids': JSON.stringify(sortedIDs),
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        success: function (response) {
+                            // Handle success response
+                        },
+                        error: function (response) {
+                            // Handle error response
+                        }
+                    });
+                }
+            }).disableSelection();
+        });
+    </script>
+{% endblock %}
+>>>>>>> 219222571adccd7d5d2d69047a3d6c978ae18027

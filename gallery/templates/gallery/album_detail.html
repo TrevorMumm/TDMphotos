@@ -1,0 +1,26 @@
+{% extends "gallery/base.html" %}
+
+{% block title %}{{ album.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ album.title }}</h1>
+<p>{{ album.description }}</p>
+<div class="scrollable-container">
+    <div class="row">
+        {% for photo in album.photos.all %}
+        <div class="col-md-6 mb-4">
+            <div class="photo-container">
+                <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="img-fluid clickable-photo" data-src="{{ photo.image.url }}">
+                <div class="photo-title">{{ photo.title }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<a class="btn btn-secondary mt-3" href="{% url 'album_list' %}">Back to Albums</a>
+
+<!-- Fullscreen Image Container -->
+<div class="fullscreen-image" id="fullscreenImageContainer">
+    <img id="fullscreenImage" src="" alt="Full Size Image">
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "gallery/base.html" %}
+
+{% block title %}Upload Photo{% endblock %}
+
+{% block content %}
+<h1>Upload a New Photo</h1>
+<form method="post" enctype="multipart/form-data" class="mt-3">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+<a class="btn btn-secondary mt-3" href="{% url 'album_list' %}">Back to Albums</a>
+{% endblock %}

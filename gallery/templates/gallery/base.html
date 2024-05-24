@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}TDM Photography{% endblock %}</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'gallery/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar-transparent {
+            background-color: transparent;
+        }
+        .navbar-transparent .navbar-brand,
+        .navbar-transparent .nav-link {
+            color: #8de5e57c;
+        }
+        .navbar-transparent .nav-link:hover {
+            color: #00ffff;
+        }
+        .scrollable-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        .photo-container {
+            text-align: center;
+        }
+        .photo-title {
+            margin-top: 5px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        .img-fluid {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border: none; /* Remove border around images */
+        }
+        .clickable-photo {
+            cursor: pointer;
+        }
+        .fullscreen-image {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .fullscreen-image img {
+            max-width: 90%;
+            max-height: 90%;
+            margin: auto;
+            display: block;
+        }
+        .welcome-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 80vh;
+            background-size: contain; /* Ensure the entire image is visible */
+            background-position: center;
+            background-repeat: no-repeat; /* Prevent image repetition */
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            padding-top: 5vh; /* Adjust this value to move the content higher */
+            overflow: hidden;
+            margin-bottom: 20px; /* Add space below each image */
+        }
+        .welcome-content {
+            margin-top: 0;
+            padding-top: 10vh; /* Adjust this value to move the content higher */
+        }
+        .welcome-content h1 {
+            font-weight: bold;
+            font-size: 4rem;
+        }
+        .welcome-content .site-title {
+            color: #00fbfb6f; /* Change this color as desired */
+        }
+        .welcome-content .btn-transparent {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: transparent;
+            border: 2px solid #007bff00;
+            color: #00fbfb6f;
+        }
+        .welcome-content .btn-transparent:hover {
+            background-color: rgba(0, 123, 255, 0.1);
+            color: #06ed95;
+            border-color: #06ed95;
+        }
+        .container {
+            background-color: #1f1f1f;
+            border-radius: 10px;
+            padding: 20px;
+            flex-grow: 1;
+        }
+        .navbar-nav .nav-item:hover .dropdown-menu {
+            display: block;
+        }
+        .dropdown-menu {
+            left: auto;
+            right: 0;
+            transform: none;
+            background-color: #1f1f1f;
+            border: none;
+        }
+        .dropdown-item {
+            color: #ffffff;
+        }
+        .dropdown-item:hover {
+            background-color: #333333;
+        }
+        .social-button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #ffffff; /* Default text color */
+            font-size: 1.5rem;
+            border: none;
+        }
+        .flickr { background-color: #ff0084; }
+        .github { background-color: #333333; }
+        .instagram { background-color: #e1306c; }
+        .linkedin { background-color: #0077b5; }
+        .email { background-color: #0f9d58;}
+        .flickr:hover, .github:hover, .instagram:hover, .linkedin:hover, .email:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-transparent">
+        <a class="navbar-brand" href="{% url 'welcome' %}">TDM Photography</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'welcome' %}">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{% url 'album_list' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Albums
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        {% for album in albums %}
+                        <a class="dropdown-item" href="{% url 'album_detail' album.pk %}">{{ album.title }}</a>
+                        {% endfor %}
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'album_list' %}">View All Albums</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'all_photos' %}">All Photos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}">Contact</a> <!-- Add this line -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/">Admin</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div class="fullscreen-image" id="fullscreenImageContainer">
+        <img id="fullscreenImage" src="" alt="Full Size Image">
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.clickable-photo').on('click', function() {
+                var src = $(this).data('src');
+                var fullscreenContainer = $('#fullscreenImageContainer');
+                var fullscreenImage = $('#fullscreenImage');
+                fullscreenImage.attr('src', src);
+                fullscreenContainer.show();
+                fullscreenContainer[0].scrollIntoView({behavior: "smooth"});
+
+                fullscreenContainer.css({
+                    'display': 'flex'
+                });
+            });
+
+            $(document).on('keydown', function(event) {
+                if (event.key === "Escape") {
+                    $('#fullscreenImageContainer').hide();
+                }
+            });
+
+            $('#fullscreenImageContainer').on('click', function() {
+                $(this).hide();
+            });
+        });
+    </script>
+</body>
+</html>
