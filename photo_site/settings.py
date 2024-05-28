@@ -7,10 +7,8 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 import django_heroku
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Define BASE_DIR
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -115,6 +113,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'photo_site.wsgi.application'
 ASGI_APPLICATION = 'photo_site.asgi.application'
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
 
 DATABASES = {
     'default': dj_database_url.config(default='sqlite:///db.sqlite3')
