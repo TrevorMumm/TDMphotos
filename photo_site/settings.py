@@ -6,7 +6,6 @@ from botocore.client import Config
 import logging
 logging.basicConfig(level=logging.DEBUG)
 import django_heroku
-from decouple import config
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
