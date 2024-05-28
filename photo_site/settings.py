@@ -17,7 +17,7 @@ SECRET_KEY = '1426d0cce42daef045a372232931d4a8f0fedf109ca07283'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'https://tdm-photography-5bd46e1300a3.herokuapp.com/']
 
 # Application definition
 
