@@ -3,14 +3,14 @@
 {% block title %}All Photos{% endblock %}
 
 {% block content %}
-<h1>All Photos</h1>
-<div class="scrollable-container">
-    <div class="row">
+<div class="container text-center mt-5">
+    <h1>All Photos</h1>
+    <div class="row mt-4">
         {% for photo in photos %}
         <div class="col-md-4 mb-4">
             <div class="photo-container">
-                <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="img-fluid clickable-photo" data-src="{{ photo.image.url }}">
-                <div class="photo-title">{{ photo.title }}</div>
+                <img src="{{ photo.url }}" alt="{{ photo.title }}" class="img-fluid clickable-photo" data-src="{{ photo.url }}">
+                <p class="photo-title">{{ photo.title }}</p>
             </div>
         </div>
         {% endfor %}

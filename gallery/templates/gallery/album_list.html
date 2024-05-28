@@ -1,27 +1,21 @@
 {% extends "gallery/base.html" %}
 
 {% block title %}Albums{% endblock %}
-<h1 class="text-center">Albums</h1>
 
 {% block content %}
-<h1>Albums</h1>
-<div class="scrollable-container">
-    <div class="row mt-3">
+<div class="container text-center mt-5">
+    <h1>Albums</h1>
+    <div class="row mt-4">
         {% for album in albums %}
-        <div class="col-md-6 mb-4">
-            <div class="photo-container">
-                <a href="{% url 'album_detail' album.pk %}">
-                    {% if album.cover_image %}
-                    <img src="{{ album.cover_image.url }}" class="img-fluid" alt="{{ album.title }}">
-                    {% else %}
-                    <img src="https://via.placeholder.com/150" class="img-fluid" alt="No cover image">
-                    {% endif %}
+        <div class="col-md-4 mb-4">
+            <div class="album-container">
+                <a href="{% url 'album_detail' album.id %}">
+                    <img src="{{ album.cover_url }}" alt="{{ album.title }}" class="img-fluid">
+                    <p class="album-title">{{ album.title }}</p>
                 </a>
-                <div class="photo-title">{{ album.title }}</div>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
-<a class="btn btn-secondary mt-3" href="{% url 'upload_photo' %}">Upload a Photo</a>
 {% endblock %}

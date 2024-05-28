@@ -71,25 +71,25 @@
             justify-content: flex-start;
             align-items: center;
             height: 80vh;
-            background-size: contain; /* Ensure the entire image is visible */
+            background-size: cover;
             background-position: center;
-            background-repeat: no-repeat; /* Prevent image repetition */
+            background-repeat: no-repeat;
             color: white;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            padding-top: 5vh; /* Adjust this value to move the content higher */
+            padding-top: 5vh;
             overflow: hidden;
-            margin-bottom: 20px; /* Add space below each image */
+            margin-bottom: 20px;
         }
         .welcome-content {
             margin-top: 0;
-            padding-top: 10vh; /* Adjust this value to move the content higher */
+            padding-top: 10vh;
         }
         .welcome-content h1 {
             font-weight: bold;
             font-size: 4rem;
         }
         .welcome-content .site-title {
-            color: #00fbfb6f; /* Change this color as desired */
+            color: #00fbfb6f;
         }
         .welcome-content .btn-transparent {
             font-size: 1.5rem;
@@ -129,7 +129,7 @@
         .social-button {
             padding: 10px 20px;
             border-radius: 5px;
-            color: #ffffff; /* Default text color */
+            color: #ffffff;
             font-size: 1.5rem;
             border: none;
         }
@@ -170,7 +170,7 @@
                     <a class="nav-link" href="{% url 'all_photos' %}">All Photos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'contact' %}">Contact</a> <!-- Add this line -->
+                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/">Admin</a>

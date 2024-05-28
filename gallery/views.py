@@ -1,12 +1,35 @@
+# views.py
+
 from django.shortcuts import render
 from django.views import View
 from .models import Album, Photo, WelcomePageSettings
+from django.conf import settings
 
 class WelcomeView(View):
     def get(self, request):
-        settings = WelcomePageSettings.objects.first()
+        context = {
+            'background_image_url': 'https://s3.us-south.cloud-object-storage.appdomain.cloud/photographysite/media/welcome_backgrounds/Northern_Lights_Eau_Claire_WI-4.jpg',
+            'background_image_2_url': 'https://s3.us-south.cloud-object-storage.appdomain.cloud/photographysite/media/welcome_backgrounds/Black_Crowned_NightHeron_w__Fish_FINAL.png',
+            'background_image_3_url': 'https://s3.us-south.cloud-object-storage.appdomain.cloud/photographysite/media/welcome_backgrounds/GOAT_UltraSharpMacroBubble-8_FINAL.jpg',
+            'background_image_4_url': 'https://s3.us-south.cloud-object-storage.appdomain.cloud/photographysite/media/welcome_backgrounds/Tan_Bison_Irvine_Park_FINAL.png'
+        }
         albums = Album.objects.all()
-        return render(request, 'gallery/welcome.html', {'settings': settings, 'albums': albums})
+        return render(request, 'gallery/welcome.html', {'settings': context, 'albums': albums})
+
+
+    # def get(self, request):
+    #     settings = WelcomePageSettings.objects.first()
+    #     albums = Album.objects.all()
+    #     return render(request, 'gallery/welcome.html', {'settings': settings, 'albums': albums})
+    
+    def __str__(self):
+        return self.title
+
+    @property
+    def url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+        return ''
 
 class AlbumListView(View):
     def get(self, request):
