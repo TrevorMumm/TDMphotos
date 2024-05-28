@@ -1,6 +1,7 @@
 asgiref==3.8.1
 backports.tarfile==1.1.1
 blinker==1.5
+boto3
 cffi==1.16.0
 cryptography==42.0.7
 distro==1.8.0
