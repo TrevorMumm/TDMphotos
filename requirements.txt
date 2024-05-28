@@ -3,6 +3,7 @@ backports.tarfile==1.1.1
 blinker==1.5
 boto3
 django-heroku
+django-storages
 cffi==1.16.0
 cryptography==42.0.7
 distro==1.8.0
