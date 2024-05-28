@@ -5,6 +5,7 @@ boto3
 django-heroku
 django-storages
 django-admin-sortable2
+gunicorn
 cffi==1.16.0
 cryptography==42.0.7
 distro==1.8.0
