@@ -15,7 +15,7 @@ SECRET_KEY = '1426d0cce42daef045a372232931d4a8f0fedf109ca07283'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'tdm-photography.herokuapp.com']
 
 # Application definition
 
@@ -112,6 +112,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'photo_site.wsgi.application'
 ASGI_APPLICATION = 'photo_site.asgi.application'
 
+DATABASES = {
+    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
+}
+
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -122,21 +126,21 @@ ASGI_APPLICATION = 'photo_site.asgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'default' : dj_database_url.config(
-            default='postgresql://mumm:fit.ant.god-09@localhost:5432/mydb',
-            conn_max_age=600
-        ),
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'mydb',
-    'USER': 'mumm',
-    'PASSWORD': 'fit.ant.god-09',
-    'HOST': 'localhost',
-    'PORT': '5432',
-    }
+# DATABASES = {
+#     'default': {
+#         'default' : dj_database_url.config(
+#             default='postgresql://mumm:fit.ant.god-09@localhost:5432/mydb',
+#             conn_max_age=600
+#         ),
+#     'ENGINE': 'django.db.backends.postgresql',
+#     'NAME': 'mydb',
+#     'USER': 'mumm',
+#     'PASSWORD': 'fit.ant.god-09',
+#     'HOST': 'localhost',
+#     'PORT': '5432',
+#     }
     
-}
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -173,4 +177,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import django_heroku
+django_heroku.settings(locals())
 # settings.py
