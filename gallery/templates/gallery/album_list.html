@@ -10,7 +10,7 @@
         <div class="col-md-4 mb-4">
             <div class="album-container">
                 <a href="{% url 'album_detail' album.id %}">
-                    <img src="{{ album.cover_url }}" alt="{{ album.title }}" class="img-fluid">
+                    <img src="{{ album.cover_image.url }}" alt="{{ album.title }}" class="img-fluid">
                     <p class="album-title">{{ album.title }}</p>
                 </a>
             </div>

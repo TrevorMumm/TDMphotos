@@ -8,7 +8,7 @@ from .forms import MultiplePhotoUploadForm
 
 class AlbumAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ['title', 'order', 'created_at']
-    fields = ['title', 'description', 'cover_image', 'order']
+    fields = ['title', 'description', 'cover_image']
 
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'uploaded_at']
@@ -42,16 +42,6 @@ class PhotoAdmin(admin.ModelAdmin):
             'title': 'Multiple Photo Upload',
         }
         return render(request, 'admin/multiple_photo_upload.html', context)
-
-    def multiple_upload_link(self, obj):
-        return format_html('<a class="button" href="{}">Upload Multiple Photos</a>', '/admin/gallery/photo/multiple-upload/')
-    multiple_upload_link.short_description = "Multiple Upload"
-    multiple_upload_link.allow_tags = True
-
-    def changelist_view(self, request, extra_context=None):
-        extra_context = extra_context or {}
-        extra_context['multiple_upload_link'] = self.multiple_upload_link(None)
-        return super(PhotoAdmin, self).changelist_view(request, extra_context=extra_context)
 
 class WelcomePageSettingsAdmin(admin.ModelAdmin):
     list_display = ['__str__']
