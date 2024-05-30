@@ -1,27 +1,43 @@
-
 {% extends "gallery/base.html" %}
 
-{% block title %}Contact Information{% endblock %}
+{% block title %}Contact{% endblock %}
 
 {% block content %}
-<div class="container text-center mt-5">
-    <h1>Contact Information</h1>
-    <div class="row mt-4">
-        <div class="col">
-            <a href="https://www.flickr.com/photos/199646771@N04/" class="btn social-button flickr" role="button" target="_blank" rel="noopener noreferrer">Flickr</a>
+<div class="container mt-5">
+    <h1>Contact</h1>
+    <form method="post" action="{% url 'contact' %}">
+        {% csrf_token %}
+        <!-- Your form fields here -->
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
         </div>
-        <div class="col">
-            <a href="https://github.com/TrevorMumm" class="btn social-button github" role="button" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
         </div>
-        <div class="col">
-            <a href="https://www.instagram.com/trevormumm/" class="btn social-button instagram" role="button" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <div class="form-group">
+            <label for="message">Message</label>
+            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
         </div>
-        <div class="col">
-            <a href="https://www.linkedin.com/in/trevormumm/" class="btn social-button linkedin" role="button" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary">Send</button>
+            <button type="reset" class="btn btn-secondary">Clear</button>
         </div>
-        <div class="col">
-            <a href="mailto:teerevv@gmail.com" class="btn social-button email" role="button">Email Me</a>
-        </div>
-    </div>
+    </form>
 </div>
+
+<style>
+    .button-group {
+        display: flex;
+        gap: 10px;
+    }
+
+    @media (max-width: 767.98px) {
+        .button-group {
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+</style>
 {% endblock %}
