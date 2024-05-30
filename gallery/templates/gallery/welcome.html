@@ -4,7 +4,9 @@
 
 {% block content %}
 <div class="welcome-container text-center">
-    <img src="{{ settings.background_image_url }}" class="welcome-image" alt="Welcome Image 1">
+    <div class="welcome-image-container">
+        <img src="{{ settings.background_image_url }}" class="welcome-image" alt="Welcome Image 1">
+    </div>
     <div class="welcome-content">
         <h1 class="site-title display-4">{{ settings.title }}</h1>
         <a class="btn btn-transparent mt-3" href="{% url 'album_list' %}">View Portfolio</a>
@@ -13,7 +15,9 @@
 
 {% if settings.background_image_2_url %}
 <div class="welcome-container text-center">
-    <img src="{{ settings.background_image_2_url }}" class="welcome-image" alt="Welcome Image 2">
+    <div class="welcome-image-container">
+        <img src="{{ settings.background_image_2_url }}" class="welcome-image" alt="Welcome Image 2">
+    </div>
     <div class="welcome-content">
         <!-- Additional content for the second image -->
     </div>
@@ -22,7 +26,9 @@
 
 {% if settings.background_image_3_url %}
 <div class="welcome-container text-center">
-    <img src="{{ settings.background_image_3_url }}" class="welcome-image" alt="Welcome Image 3">
+    <div class="welcome-image-container">
+        <img src="{{ settings.background_image_3_url }}" class="welcome-image" alt="Welcome Image 3">
+    </div>
     <div class="welcome-content">
         <!-- Additional content for the third image -->
     </div>
@@ -31,7 +37,9 @@
 
 {% if settings.background_image_4_url %}
 <div class="welcome-container text-center">
-    <img src="{{ settings.background_image_4_url }}" class="welcome-image" alt="Welcome Image 4">
+    <div class="welcome-image-container">
+        <img src="{{ settings.background_image_4_url }}" class="welcome-image" alt="Welcome Image 4">
+    </div>
     <div class="welcome-content">
         <!-- Additional content for the fourth image -->
     </div>
@@ -51,20 +59,27 @@
         margin-bottom: 20px;
     }
 
-    .welcome-image {
+    .welcome-image-container {
         width: 100%;
         height: 100%;
-        object-fit: contain;
         position: absolute;
         top: 0;
         left: 0;
         z-index: -1;
     }
 
+    .welcome-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensure the image covers the container without being cut off */
+    }
+
     .welcome-content {
         z-index: 1;
         position: relative;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.5); /* Adding a semi-transparent background to the text for better visibility */
     }
 
     @media (max-width: 767.98px) {
