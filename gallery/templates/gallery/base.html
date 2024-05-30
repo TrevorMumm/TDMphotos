@@ -27,11 +27,35 @@
             color: #00ffff;
         }
         .navbar-toggler {
-            border-color: rgba(255, 255, 255, 0.1); /* Light border for better visibility */
+            border: none; /* Remove border */
         }
         .navbar-toggler-icon {
-            color: #ffffff; /* Ensure the color is visible */
-            background-color: #ffffff; /* Ensure the color is visible */
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            position: relative;
+            background: none;
+            border: none;
+            color: transparent;
+        }
+        .navbar-toggler-icon:before, 
+        .navbar-toggler-icon:after, 
+        .navbar-toggler-icon div {
+            position: absolute;
+            width: 24px;
+            height: 3px;
+            background-color: #ffffff; /* Set the color of the lines */
+            content: '';
+            display: block;
+        }
+        .navbar-toggler-icon:before {
+            top: 0;
+        }
+        .navbar-toggler-icon div {
+            top: 10px;
+        }
+        .navbar-toggler-icon:after {
+            bottom: 0;
         }
         .scrollable-container {
             flex-grow: 1;
@@ -160,7 +184,9 @@
     <nav class="navbar navbar-expand-lg navbar-transparent">
         <a class="navbar-brand" href="{% url 'welcome' %}">TDM Photography</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+            <span class="navbar-toggler-icon">
+                <div></div>
+            </span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
