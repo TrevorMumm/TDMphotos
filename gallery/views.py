@@ -27,7 +27,6 @@ class WelcomeView(View):
 class AlbumListView(View):
     def get(self, request):
         albums = Album.objects.all()
-        album_photos = {album: album.photo_set.all() for album in albums}
         return render(request, 'gallery/album_list.html', {'albums': albums})
 
 class AlbumDetailView(View):
