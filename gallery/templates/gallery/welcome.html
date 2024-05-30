@@ -4,9 +4,7 @@
 
 {% block content %}
 <div class="welcome-container text-center">
-    <div class="welcome-image-wrapper">
-        <img src="{{ settings.background_image_url }}" class="welcome-image" alt="Welcome Image 1">
-    </div>
+    <div class="welcome-image bg-image-1"></div>
     <div class="welcome-content">
         <h1 class="site-title display-4">{{ settings.title }}</h1>
         <a class="btn btn-transparent mt-3" href="{% url 'album_list' %}">View Portfolio</a>
@@ -15,9 +13,7 @@
 
 {% if settings.background_image_2_url %}
 <div class="welcome-container text-center">
-    <div class="welcome-image-wrapper">
-        <img src="{{ settings.background_image_2_url }}" class="welcome-image" alt="Welcome Image 2">
-    </div>
+    <div class="welcome-image bg-image-2"></div>
     <div class="welcome-content">
         <!-- Additional content for the second image -->
     </div>
@@ -26,9 +22,7 @@
 
 {% if settings.background_image_3_url %}
 <div class="welcome-container text-center">
-    <div class="welcome-image-wrapper">
-        <img src="{{ settings.background_image_3_url }}" class="welcome-image" alt="Welcome Image 3">
-    </div>
+    <div class="welcome-image bg-image-3"></div>
     <div class="welcome-content">
         <!-- Additional content for the third image -->
     </div>
@@ -37,9 +31,7 @@
 
 {% if settings.background_image_4_url %}
 <div class="welcome-container text-center">
-    <div class="welcome-image-wrapper">
-        <img src="{{ settings.background_image_4_url }}" class="welcome-image" alt="Welcome Image 4">
-    </div>
+    <div class="welcome-image bg-image-4"></div>
     <div class="welcome-content">
         <!-- Additional content for the fourth image -->
     </div>
@@ -50,36 +42,41 @@
 <style>
     .welcome-container {
         position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        display: grid;
+        place-items: center;
         height: 80vh;
         overflow: hidden;
         margin-bottom: 20px;
     }
 
-    .welcome-image-wrapper {
+    .welcome-image {
+        grid-area: 1 / 1;
         width: 100%;
         height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
+        background-size: contain; /* Ensure the entire image is visible */
+        background-position: center;
+        background-repeat: no-repeat;
     }
 
-    .welcome-image {
-        width: 100%;
-        height: auto;
+    .bg-image-1 {
+        background-image: url('{{ settings.background_image_url }}');
+    }
+
+    .bg-image-2 {
+        background-image: url('{{ settings.background_image_2_url }}');
+    }
+
+    .bg-image-3 {
+        background-image: url('{{ settings.background_image_3_url }}');
+    }
+
+    .bg-image-4 {
+        background-image: url('{{ settings.background_image_4_url }}');
     }
 
     .welcome-content {
+        grid-area: 1 / 1;
         z-index: 1;
-        position: relative;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         padding: 20px;
         background-color: rgba(0, 0, 0, 0.5); /* Adding a semi-transparent background to the text for better visibility */
