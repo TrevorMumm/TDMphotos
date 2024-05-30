@@ -4,12 +4,7 @@
 
 {% block content %}
 <div class="welcome-container text-center">
-    <picture>
-        <source media="(max-width: 767.98px)" srcset="{{ settings.background_image_url }}">
-        <source media="(min-width: 768px) and (max-width: 991.98px)" srcset="{{ settings.background_image_url }}">
-        <source media="(min-width: 992px)" srcset="{{ settings.background_image_url }}">
-        <img src="{{ settings.background_image_url }}" alt="Welcome Image 1" class="welcome-image">
-    </picture>
+    <img src="{{ settings.background_image_url }}" class="welcome-image" alt="Welcome Image 1">
     <div class="welcome-content">
         <h1 class="site-title display-4">{{ settings.title }}</h1>
         <a class="btn btn-transparent mt-3" href="{% url 'album_list' %}">View Portfolio</a>
@@ -18,12 +13,7 @@
 
 {% if settings.background_image_2_url %}
 <div class="welcome-container text-center">
-    <picture>
-        <source media="(max-width: 767.98px)" srcset="{{ settings.background_image_2_url }}">
-        <source media="(min-width: 768px) and (max-width: 991.98px)" srcset="{{ settings.background_image_2_url }}">
-        <source media="(min-width: 992px)" srcset="{{ settings.background_image_2_url }}">
-        <img src="{{ settings.background_image_2_url }}" alt="Welcome Image 2" class="welcome-image">
-    </picture>
+    <img src="{{ settings.background_image_2_url }}" class="welcome-image" alt="Welcome Image 2">
     <div class="welcome-content">
         <!-- Additional content for the second image -->
     </div>
@@ -32,12 +22,7 @@
 
 {% if settings.background_image_3_url %}
 <div class="welcome-container text-center">
-    <picture>
-        <source media="(max-width: 767.98px)" srcset="{{ settings.background_image_3_url }}">
-        <source media="(min-width: 768px) and (max-width: 991.98px)" srcset="{{ settings.background_image_3_url }}">
-        <source media="(min-width: 992px)" srcset="{{ settings.background_image_3_url }}">
-        <img src="{{ settings.background_image_3_url }}" alt="Welcome Image 3" class="welcome-image">
-    </picture>
+    <img src="{{ settings.background_image_3_url }}" class="welcome-image" alt="Welcome Image 3">
     <div class="welcome-content">
         <!-- Additional content for the third image -->
     </div>
@@ -46,12 +31,7 @@
 
 {% if settings.background_image_4_url %}
 <div class="welcome-container text-center">
-    <picture>
-        <source media="(max-width: 767.98px)" srcset="{{ settings.background_image_4_url }}">
-        <source media="(min-width: 768px) and (max-width: 991.98px)" srcset="{{ settings.background_image_4_url }}">
-        <source media="(min-width: 992px)" srcset="{{ settings.background_image_4_url }}">
-        <img src="{{ settings.background_image_4_url }}" alt="Welcome Image 4" class="welcome-image">
-    </picture>
+    <img src="{{ settings.background_image_4_url }}" class="welcome-image" alt="Welcome Image 4">
     <div class="welcome-content">
         <!-- Additional content for the fourth image -->
     </div>
@@ -73,8 +53,9 @@
 
     .welcome-image {
         width: 100%;
-        height: 100%;
-        object-fit: cover; /* Ensure the image covers the container without being cut off */
+        height: auto;
+        max-height: 100%;
+        object-fit: contain; /* Ensure the image is fully visible without being cut off */
         position: absolute;
         top: 0;
         left: 0;
