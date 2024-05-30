@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="welcome-container text-center">
-    <div class="welcome-image-container">
+    <div class="welcome-image-wrapper">
         <img src="{{ settings.background_image_url }}" class="welcome-image" alt="Welcome Image 1">
     </div>
     <div class="welcome-content">
@@ -15,7 +15,7 @@
 
 {% if settings.background_image_2_url %}
 <div class="welcome-container text-center">
-    <div class="welcome-image-container">
+    <div class="welcome-image-wrapper">
         <img src="{{ settings.background_image_2_url }}" class="welcome-image" alt="Welcome Image 2">
     </div>
     <div class="welcome-content">
@@ -26,7 +26,7 @@
 
 {% if settings.background_image_3_url %}
 <div class="welcome-container text-center">
-    <div class="welcome-image-container">
+    <div class="welcome-image-wrapper">
         <img src="{{ settings.background_image_3_url }}" class="welcome-image" alt="Welcome Image 3">
     </div>
     <div class="welcome-content">
@@ -37,7 +37,7 @@
 
 {% if settings.background_image_4_url %}
 <div class="welcome-container text-center">
-    <div class="welcome-image-container">
+    <div class="welcome-image-wrapper">
         <img src="{{ settings.background_image_4_url }}" class="welcome-image" alt="Welcome Image 4">
     </div>
     <div class="welcome-content">
@@ -59,9 +59,13 @@
         margin-bottom: 20px;
     }
 
-    .welcome-image-container {
+    .welcome-image-wrapper {
         width: 100%;
         height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
         position: absolute;
         top: 0;
         left: 0;
@@ -70,8 +74,7 @@
 
     .welcome-image {
         width: 100%;
-        height: 100%;
-        object-fit: cover; /* Ensure the image covers the container without being cut off */
+        height: auto;
     }
 
     .welcome-content {
