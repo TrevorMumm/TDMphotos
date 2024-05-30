@@ -3,8 +3,7 @@
 {% block title %}Welcome to TDM Photography{% endblock %}
 
 {% block content %}
-<div class="welcome-container">
-    <div class="welcome-image" style="background-image: url('{{ settings.background_image_url }}');"></div>
+<div class="welcome-container text-center" style="background-image: url('{{ settings.background_image_url }}');">
     <div class="welcome-content">
         <h1 class="site-title display-4">{{ settings.title }}</h1>
         <a class="btn btn-transparent mt-3" href="{% url 'album_list' %}">View Portfolio</a>
@@ -12,8 +11,7 @@
 </div>
 
 {% if settings.background_image_2_url %}
-<div class="welcome-container">
-    <div class="welcome-image" style="background-image: url('{{ settings.background_image_2_url }}');"></div>
+<div class="welcome-container text-center" style="background-image: url('{{ settings.background_image_2_url }}');">
     <div class="welcome-content">
         <!-- Additional content for the second image -->
     </div>
@@ -21,8 +19,7 @@
 {% endif %}
 
 {% if settings.background_image_3_url %}
-<div class="welcome-container">
-    <div class="welcome-image" style="background-image: url('{{ settings.background_image_3_url }}');"></div>
+<div class="welcome-container text-center" style="background-image: url('{{ settings.background_image_3_url }}');">
     <div class="welcome-content">
         <!-- Additional content for the third image -->
     </div>
@@ -30,8 +27,7 @@
 {% endif %}
 
 {% if settings.background_image_4_url %}
-<div class="welcome-container">
-    <div class="welcome-image" style="background-image: url('{{ settings.background_image_4_url }}');"></div>
+<div class="welcome-container text-center" style="background-image: url('{{ settings.background_image_4_url }}');">
     <div class="welcome-content">
         <!-- Additional content for the fourth image -->
     </div>
@@ -42,28 +38,24 @@
 <style>
     .welcome-container {
         position: relative;
-        display: grid;
-        place-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         height: 80vh;
         overflow: hidden;
         margin-bottom: 20px;
-    }
-
-    .welcome-image {
-        grid-area: 1 / 1;
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+        background-size: cover; /* Ensure the image covers the container */
+        background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Prevent the image from repeating */
     }
 
     .welcome-content {
-        grid-area: 1 / 1;
         z-index: 1;
+        position: relative;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         padding: 20px;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.5); /* Adding a semi-transparent background to the text for better visibility */
     }
 
     @media (max-width: 767.98px) {
