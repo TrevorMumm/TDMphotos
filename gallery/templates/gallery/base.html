@@ -4,7 +4,6 @@
     <title>{% block title %}TDM Photography{% endblock %}</title>
     {% load static %}
     <link rel="icon" href="{% static 'gallery/favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Link to your CSS file -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
@@ -165,6 +164,70 @@
         }
         .dropdown-item:hover {
             background-color: #333333;
+        }
+        .responsive-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .welcome-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background-size: cover; /* Ensure the image covers the container */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent the image from repeating */
+        }
+
+        @media (max-width: 767.98px) {
+            .welcome-container {
+                height: 50vh;
+            }
+
+            .welcome-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .welcome-content .btn-transparent {
+                font-size: 1rem;
+                padding: 5px 10px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991.98px) {
+            .welcome-container {
+                height: 60vh;
+            }
+
+            .welcome-content h1 {
+                font-size: 3.5rem;
+            }
+
+            .welcome-content .btn-transparent {
+                font-size: 1.25rem;
+                padding: 7px 15px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .welcome-container {
+                height: 80vh;
+            }
+
+            .welcome-content h1 {
+                font-size: 4rem;
+            }
+
+            .welcome-content .btn-transparent {
+                font-size: 1.5rem;
+                padding: 10px 20px;
+            }
         }
         .social-button {
             padding: 10px 20px;
