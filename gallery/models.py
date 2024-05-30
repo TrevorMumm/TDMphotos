@@ -1,7 +1,4 @@
-# models.py
-
 from django.db import models
-from adminsortable2.admin import SortableAdminMixin
 
 class Tag(models.Model):
     name = models.CharField(max_length=50)
@@ -43,7 +40,7 @@ class Photo(models.Model):
 
     def __str__(self):
         return self.title or str(self.image)
-    
+
     def url(self):
         if self.image and hasattr(self.image, 'url'):
             return self.image.url

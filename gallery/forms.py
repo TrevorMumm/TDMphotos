@@ -1,12 +1,11 @@
 from django import forms
 from .models import Album, Tag
-from .widgets import MultipleFileInput
+from .models import Photo
 
-class MultiplePhotoUploadForm(forms.Form):
-    images = forms.FileField(widget=MultipleFileInput(), required=True)
-    albums = forms.ModelMultipleChoiceField(queryset=Album.objects.all(), required=True)
-    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), required=False)
-
+class PhotoUploadForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        fields = ['title', 'image', 'albums', 'tags']
 
 class AlbumAdminForm(forms.ModelForm):
     class Meta:
