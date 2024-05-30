@@ -5,25 +5,28 @@
 {% block content %}
 <div class="welcome-container bg-image-1 text-center" style="background-image: url('{{ settings.background_image_url }}');">
     <div class="welcome-content">
-        <h1 class="site-title display-4">TDM Photography</h1>
+        <h1 class="site-title display-4">{{ settings.title }}</h1>
         <a class="btn btn-transparent mt-3" href="{% url 'album_list' %}">View Portfolio</a>
     </div>
 </div>
 {% if settings.background_image_2_url %}
 <div class="welcome-container bg-image-2 text-center" style="background-image: url('{{ settings.background_image_2_url }}');">
     <div class="welcome-content">
+        <!-- Additional content for the second image -->
     </div>
 </div>
 {% endif %}
 {% if settings.background_image_3_url %}
 <div class="welcome-container bg-image-3 text-center" style="background-image: url('{{ settings.background_image_3_url }}');">
     <div class="welcome-content">
+        <!-- Additional content for the third image -->
     </div>
 </div>
 {% endif %}
 {% if settings.background_image_4_url %}
 <div class="welcome-container bg-image-4 text-center" style="background-image: url('{{ settings.background_image_4_url }}');">
     <div class="welcome-content">
+        <!-- Additional content for the fourth image -->
     </div>
 </div>
 {% endif %}

@@ -106,6 +106,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'photo_site.context_processor.custom_settings',
+                'photo_site.context_processor.all_albums',
             ],
         },
     },

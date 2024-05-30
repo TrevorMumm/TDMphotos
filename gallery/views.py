@@ -1,20 +1,13 @@
 # views.py
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import View
 from .models import Album, Photo, WelcomePageSettings
 from django.conf import settings
 
 class WelcomeView(View):
     def get(self, request):
-        context = {
-            'background_image_url': 'https://s3.us-south.cloud-object-storage.appdomain.cloud/photographysite/media/welcome_backgrounds/Northern_Lights_Eau_Claire_WI-4.jpg',
-            'background_image_2_url': 'https://s3.us-south.cloud-object-storage.appdomain.cloud/photographysite/media/welcome_backgrounds/Black_Crowned_NightHeron_w__Fish_FINAL.png',
-            'background_image_3_url': 'https://s3.us-south.cloud-object-storage.appdomain.cloud/photographysite/media/welcome_backgrounds/GOAT_UltraSharpMacroBubble-8_FINAL.jpg',
-            'background_image_4_url': 'https://s3.us-south.cloud-object-storage.appdomain.cloud/photographysite/media/welcome_backgrounds/Tan_Bison_Irvine_Park_FINAL.png'
-        }
-        albums = Album.objects.all()
-        return render(request, 'gallery/welcome.html', {'settings': context, 'albums': albums})
+        return render(request, 'gallery/welcome.html')
 
 
     # def get(self, request):
@@ -38,9 +31,9 @@ class AlbumListView(View):
 
 class AlbumDetailView(View):
     def get(self, request, pk):
-        album = Album.objects.get(pk=pk)
-        albums = Album.objects.all()
-        return render(request, 'gallery/album_detail.html', {'album': album, 'albums': albums})
+        album = get_object_or_404(Album, pk=pk)
+        photos = album.photos.all()
+        return render(request, 'gallery/album_detail.html', {'album': album, 'photos': photos})
 
 class PhotoUploadView(View):
     def get(self, request):

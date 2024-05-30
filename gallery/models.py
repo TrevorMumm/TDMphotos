@@ -50,10 +50,11 @@ class Photo(models.Model):
         return ''
 
 class WelcomePageSettings(models.Model):
-    background_image = models.ImageField(upload_to='media/welcome_backgrounds/', blank=True, null=True)
-    background_image_2 = models.ImageField(upload_to='media/welcome_backgrounds/', blank=True, null=True)
-    background_image_3 = models.ImageField(upload_to='media/welcome_backgrounds/', blank=True, null=True)
-    background_image_4 = models.ImageField(upload_to='media/welcome_backgrounds/', blank=True, null=True)
+    title = models.CharField(max_length=100, default="Welcome to TDM Photography")
+    background_image = models.ImageField(upload_to='media/welcome/', blank=True, null=True)
+    background_image_2 = models.ImageField(upload_to='media/welcome/', blank=True, null=True)
+    background_image_3 = models.ImageField(upload_to='media/welcome/', blank=True, null=True)
+    background_image_4 = models.ImageField(upload_to='media/welcome/', blank=True, null=True)
 
     def __str__(self):
-        return "Welcome Page Settings"
+        return self.title

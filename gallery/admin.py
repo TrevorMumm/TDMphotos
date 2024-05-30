@@ -44,8 +44,8 @@ class PhotoAdmin(admin.ModelAdmin):
         return render(request, 'admin/multiple_photo_upload.html', context)
 
 class WelcomePageSettingsAdmin(admin.ModelAdmin):
-    list_display = ['__str__']
-    fields = ['background_image', 'background_image_2', 'background_image_3', 'background_image_4']
+    list_display = ['title']
+    fields = ['title', 'background_image', 'background_image_2', 'background_image_3', 'background_image_4']
 
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Album, AlbumAdmin)
