@@ -3,7 +3,7 @@
 {% block title %}Welcome to TDM Photography{% endblock %}
 
 {% block content %}
-<div class="welcome-container text-center" style="background-image: url('{{ settings.background_image_url }}');">
+<div class="welcome-container" style="background-image: url('{{ settings.background_image_url }}');">
     <div class="welcome-content">
         <h1 class="site-title display-4">{{ settings.title }}</h1>
         <a class="btn btn-transparent mt-3" href="{% url 'album_list' %}">View Portfolio</a>
@@ -11,7 +11,7 @@
 </div>
 
 {% if settings.background_image_2_url %}
-<div class="welcome-container text-center" style="background-image: url('{{ settings.background_image_2_url }}');">
+<div class="welcome-container" style="background-image: url('{{ settings.background_image_2_url }}');">
     <div class="welcome-content">
         <!-- Additional content for the second image -->
     </div>
@@ -19,7 +19,7 @@
 {% endif %}
 
 {% if settings.background_image_3_url %}
-<div class="welcome-container text-center" style="background-image: url('{{ settings.background_image_3_url }}');">
+<div class="welcome-container" style="background-image: url('{{ settings.background_image_3_url }}');">
     <div class="welcome-content">
         <!-- Additional content for the third image -->
     </div>
@@ -27,79 +27,10 @@
 {% endif %}
 
 {% if settings.background_image_4_url %}
-<div class="welcome-container text-center" style="background-image: url('{{ settings.background_image_4_url }}');">
+<div class="welcome-container" style="background-image: url('{{ settings.background_image_4_url }}');">
     <div class="welcome-content">
         <!-- Additional content for the fourth image -->
     </div>
 </div>
 {% endif %}
 {% endblock %}
-
-<style>
-    .welcome-container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 80vh;
-        overflow: hidden;
-        margin-bottom: 20px;
-        background-size: cover; /* Ensure the image covers the container */
-        background-position: center; /* Center the image */
-        background-repeat: no-repeat; /* Prevent the image from repeating */
-    }
-
-    .welcome-content {
-        z-index: 1;
-        position: relative;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        padding: 20px;
-        background-color: rgba(0, 0, 0, 0.5); /* Adding a semi-transparent background to the text for better visibility */
-    }
-
-    @media (max-width: 767.98px) {
-        .welcome-container {
-            height: 50vh;
-        }
-
-        .welcome-content h1 {
-            font-size: 2.5rem;
-        }
-
-        .welcome-content .btn-transparent {
-            font-size: 1rem;
-            padding: 5px 10px;
-        }
-    }
-
-    @media (min-width: 768px) and (max-width: 991.98px) {
-        .welcome-container {
-            height: 60vh;
-        }
-
-        .welcome-content h1 {
-            font-size: 3.5rem;
-        }
-
-        .welcome-content .btn-transparent {
-            font-size: 1.25rem;
-            padding: 7px 15px;
-        }
-    }
-
-    @media (min-width: 992px) {
-        .welcome-container {
-            height: 80vh;
-        }
-
-        .welcome-content h1 {
-            font-size: 4rem;
-        }
-
-        .welcome-content .btn-transparent {
-            font-size: 1.5rem;
-            padding: 10px 20px;
-        }
-    }
-</style>
