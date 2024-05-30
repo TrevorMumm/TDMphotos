@@ -5,6 +5,7 @@
     {% load static %}
     <link rel="icon" href="{% static 'gallery/favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
         body {
             background-color: #121212;
@@ -15,6 +16,12 @@
             display: flex;
             flex-direction: column;
         }
+        .navbar-toggler-icon {
+        color: #8de5e57c; /* Ensure the color is visible */
+        }
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.1); /* Light border for better visibility */
+        }
         .navbar-transparent {
             background-color: transparent;
         }
@@ -24,6 +31,9 @@
         }
         .navbar-transparent .nav-link:hover {
             color: #00ffff;
+        }
+        .navbar-toggler-icon {
+            color: #8de5e57c; /* Ensure the color is visible */
         }
         .scrollable-container {
             flex-grow: 1;
@@ -152,7 +162,7 @@
     <nav class="navbar navbar-expand-lg navbar-transparent">
         <a class="navbar-brand" href="{% url 'welcome' %}">TDM Photography</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
