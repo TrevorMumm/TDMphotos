@@ -105,30 +105,33 @@
             display: block;
         }
         .welcome-container {
+            position: relative;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
             height: 80vh;
+            overflow: hidden;
+            margin-bottom: 20px;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            padding-top: 5vh;
             color: white;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            padding-top: 5vh;
-            overflow: hidden;
-            margin-bottom: 20px;
         }
         .welcome-content {
-            margin-top: 0;
-            padding-top: 10vh;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0);
+            margin-top: 0vh; /* This adjust height of title on welcome page*/
         }
         .welcome-content h1 {
             font-weight: bold;
             font-size: 4rem;
-        }
-        .welcome-content .site-title {
             color: #00fbfb6f;
+            margin-bottom: 20px;
         }
         .welcome-content .btn-transparent {
             font-size: 1.5rem;
@@ -136,7 +139,10 @@
             border-radius: 5px;
             background-color: transparent;
             border: 2px solid #007bff00;
+            border-color: #00fbfb6f;
             color: #00fbfb6f;
+            display: inline-block;
+            margin: 0 auto;
         }
         .welcome-content .btn-transparent:hover {
             background-color: rgba(0, 123, 255, 0.1);
@@ -165,26 +171,6 @@
         .dropdown-item:hover {
             background-color: #333333;
         }
-        .responsive-image {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-        }
-
-        .welcome-container {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 80vh;
-            overflow: hidden;
-            margin-bottom: 20px;
-            background-size: cover; /* Ensure the image covers the container */
-            background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Prevent the image from repeating */
-        }
-
         @media (max-width: 767.98px) {
             .welcome-container {
                 height: 50vh;
