@@ -6,17 +6,33 @@
 <div class="container text-center mt-5">
     <div class="page-title-container">
         <h1 class="page-title">{{ album.title }}</h1>
-        <p class="page-subtitle">Click/tap on photos to enlarge</p> <!-- Added subtitle -->
+        <p class="page-subtitle">Click/tap on photos to enlarge</p>
     </div>
-    <div class="row mt-4">
-        {% for photo in photos %}
-        <div class="col-md-4 mb-4">
-            <div class="photo-container">
-                <img src="{{ photo.url }}" alt="{{ photo.title }}" class="img-fluid clickable-photo" data-src="{{ photo.url }}">
-                <p class="photo-title">{{ photo.title }}</p>
+
+    <!-- Add the button to generate a unique link -->
+    <div class="generate-link-container">
+        <button id="generateLinkButtonTop" class="btn btn-view-photos mb-3">Generate Shareable Link</button>
+    </div>
+
+    <form id="photoSelectionForm">
+        <div class="row mt-4" id="photoGrid">
+            {% for photo in photos %}
+            <div class="col-md-4 mb-4">
+                <div class="photo-container">
+                    <div class="checkbox-container">
+                        <input type="checkbox" class="photo-checkbox" value="{{ photo.id }}">
+                    </div>
+                    <img src="{{ photo.url }}" alt="{{ photo.title }}" class="img-fluid clickable-photo" data-src="{{ photo.url }}">
+                    <p class="photo-title">{{ photo.title }}</p>
+                </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+    </form>
+
+    <!-- Add the button to generate a unique link at the bottom as well -->
+    <div class="generate-link-container">
+        <button id="generateLinkButtonBottom" class="btn btn-view-photos mb-3">Generate Shareable Link</button>
     </div>
 </div>
 
@@ -24,4 +40,58 @@
 <div class="fullscreen-image" id="fullscreenImageContainer">
     <img id="fullscreenImage" src="" alt="Full Size Image">
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("JavaScript loaded!");
+
+        const generateLinkButtonTop = document.getElementById('generateLinkButtonTop');
+        const generateLinkButtonBottom = document.getElementById('generateLinkButtonBottom');
+
+        if (generateLinkButtonTop) {
+            console.log("Top button found");
+        } else {
+            console.log("Top button not found");
+        }
+
+        if (generateLinkButtonBottom) {
+            console.log("Bottom button found");
+        } else {
+            console.log("Bottom button not found");
+        }
+
+        function generateUniqueLink() {
+            console.log("Generate Unique Link button clicked");
+            const checkboxes = document.querySelectorAll('.photo-checkbox:checked');
+            const selectedPhotoIds = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+            console.log("Selected photo IDs:", selectedPhotoIds);
+
+            if (selectedPhotoIds.length > 0) {
+                const queryParams = new URLSearchParams({ photo_ids: selectedPhotoIds.join(',') });
+                const url = `{% url 'view_selected_photos' %}?${queryParams.toString()}`;
+                console.log("Navigating to:", url);
+                window.location.href = url;
+            } else {
+                alert('Please select at least one photo.');
+            }
+        }
+
+        if (generateLinkButtonTop) {
+            generateLinkButtonTop.addEventListener('click', function() {
+                console.log("Top button clicked");
+                generateUniqueLink();
+            });
+        }
+
+        if (generateLinkButtonBottom) {
+            generateLinkButtonBottom.addEventListener('click', function() {
+                console.log("Bottom button clicked");
+                generateUniqueLink();
+            });
+        }
+    });
+</script>
 {% endblock %}
