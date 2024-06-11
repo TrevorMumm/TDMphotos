@@ -1,0 +1,55 @@
+{% extends "gallery/base.html" %}
+
+{% block title %}Selected Photos{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="page-title-container">
+        <h1 class="page-title">Selected Photos</h1>
+        <p class="page-subtitle">Click/tap on photos to enlarge | Copy the link to share</p>
+    </div>
+    <div class="row mt-4">
+        {% for photo in photos %}
+        <div class="col-md-4 mb-4">
+            <div class="photo-container">
+                <img src="{{ photo.url }}" alt="{{ photo.title }}" class="img-fluid clickable-photo" data-src="{{ photo.url }}">
+                <p class="photo-title">{{ photo.title }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Fullscreen Image Container -->
+<div class="fullscreen-image" id="fullscreenImageContainer">
+    <img id="fullscreenImage" src="" alt="Full Size Image">
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const clickablePhotos = document.querySelectorAll('.clickable-photo');
+        const fullscreenImageContainer = document.getElementById('fullscreenImageContainer');
+        const fullscreenImage = document.getElementById('fullscreenImage');
+
+        clickablePhotos.forEach(photo => {
+            photo.addEventListener('click', function() {
+                const src = photo.getAttribute('data-src');
+                fullscreenImage.setAttribute('src', src);
+                fullscreenImageContainer.style.display = 'flex';
+            });
+        });
+
+        fullscreenImageContainer.addEventListener('click', function() {
+            fullscreenImageContainer.style.display = 'none';
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                fullscreenImageContainer.style.display = 'none';
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -76,6 +76,16 @@
             border: 2px solid #ffffff;
             text-align: center;
         }
+        .checkbox-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+        .checkbox-container input {
+            width: 20px;
+            height: 20px;
+        }
         .photo-title {
             margin-top: 5px;
             font-weight: bold;
@@ -235,6 +245,23 @@
         .flickr:hover, .github:hover, .instagram:hover, .linkedin:hover, .email:hover {
             opacity: 0.8;
         }
+        .btn-view-photos {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: transparent;
+            border: 2px solid #007bff00;
+            border-color: #00fbfb6f;
+            color: #00fbfb6f;
+            display: inline-block;
+            margin: 0 auto;
+        }
+
+        .btn-view-photos:hover {
+            background-color: rgba(0, 123, 255, 0.1);
+            color: #06ed95;
+            border-color: #06ed95;
+        }
     </style>
 </head>
 <body>
@@ -283,6 +310,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
+            console.log("JavaScript loaded!");
+
             $('.clickable-photo').on('click', function() {
                 var src = $(this).data('src');
                 var fullscreenContainer = $('#fullscreenImageContainer');
@@ -307,5 +336,6 @@
             });
         });
     </script>
+    {% block extra_js %}{% endblock %}
 </body>
 </html>
