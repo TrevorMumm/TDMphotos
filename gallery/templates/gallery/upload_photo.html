@@ -1,14 +1,18 @@
-{% extends "gallery/base.html" %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.title.label_tag }} {{ form.title }}
 
-{% block title %}Upload Photo{% endblock %}
+    <label for="id_images">Images:</label>
+    <input type="file" name="images" id="id_images" multiple required>
 
-{% block content %}
-<div class="container mt-5">
-    <h1>Upload Photo</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Upload</button>
-    </form>
-</div>
-{% endblock %}
+    <h4>Select Existing Albums:</h4>
+    {{ form.albums }}
+
+    <h4>Or Create New Album:</h4>
+    {{ form.new_album_title.label_tag }} {{ form.new_album_title }}
+
+    <h4>Tags:</h4>
+    {{ form.tags }}
+
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
