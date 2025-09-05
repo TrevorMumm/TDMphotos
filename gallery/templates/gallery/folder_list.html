@@ -1,0 +1,118 @@
+{% extends "gallery/base.html" %}
+{% load static %}
+
+{% block title %}Folders · TDM{% endblock %}
+
+{% block content %}
+  <style>
+    /* Kill the stray bullet introduced by global CSS */
+    /* Page wrapper: centers content without a background panel */
+    .folder-page { max-width: 1080px; margin: 0 auto; }
+
+    /* Kill bullets and any default margins */
+    .folder-grid, .folder-grid > li { list-style: none !important; margin: 0; padding: 0; }
+
+    /* Keep your existing folder-grid/card styles below */
+    .folder-item{ background:#1f1f1f; border-radius:8px; overflow:hidden; text-align:center; transition:transform .2s ease; }
+    .folder-item:hover{ transform:scale(1.03); }
+    .folder-cover{ width:100%; height:150px; object-fit:cover; display:block; }
+    .folder-name{ font-weight:700; margin:10px 0 5px; color:#fff; }
+    .folder-desc{ font-size:.9rem; color:#bbb; margin:0 10px 12px; }
+</style>
+
+  </style>
+
+  <h1 class="page-title">Folders</h1>
+  <ul class="folder-grid">
+    {% for folder in folders %}
+      <li class="folder-item">
+        <a href="{% url 'gallery:folder_detail' slug=folder.slug %}">
+          {% if folder.cover_image %}
+            <img src="{{ folder.cover_image.url }}" alt="{{ folder.name }}" class="folder-cover">
+          {% else %}
+            <img src="{% static 'img/folder_placeholder.png' %}" alt="{{ folder.name }}" class="folder-cover">
+          {% endif %}
+          <div class="folder-name">{{ folder.name }}</div>
+          {% if folder.description %}
+            <div class="folder-desc">{{ folder.description }}</div>
+          {% endif %}
+        </a>
+      </li>
+    {% empty %}
+      <li>No folders yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+<!-- {% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <h1 class="page-title">Folders</h1>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="{% static 'css/site.css' %}" rel="stylesheet">
+  <style>
+    .folder-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .folder-item {
+      background-color: #1f1f1f;
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+    .folder-item:hover {
+      transform: scale(1.05);
+    }
+    .folder-cover {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      display: block;
+    }
+    .folder-name {
+      font-weight: bold;
+      margin: 10px 0 5px;
+      color: #ffffff;
+    }
+    .folder-desc {
+      font-size: 0.9rem;
+      color: #cccccc;
+      margin-bottom: 10px;
+    }
+    .page-title {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <!-- <h1>Folders</h1> -->
+    <ul class="folder-grid">
+      {% for folder in folders %}
+        <li class="folder-item">
+          <a href="{% url 'gallery:folder_detail' slug=folder.slug %}">
+            {% if folder.cover_image %}
+              <img src="{{ folder.cover_image.url }}" alt="{{ folder.name }}" class="folder-cover">
+            {% endif %}
+            <div class="folder-name">{{ folder.name }}</div>
+            {% if folder.description %}
+              <div class="folder-desc">{{ folder.description }}</div>
+            {% endif %}
+          </a>
+        </li>
+      {% empty %}
+        <li>No folders yet.</li>
+      {% endfor %}
+    </ul>
+  </main>
+</body>
+</html> -->

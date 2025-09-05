@@ -9,7 +9,7 @@ urlpatterns = [
     #path('admin/', admin.site.urls),
     #path('adminsortable2/', include('adminsortable2.urls')),
     path('', include('gallery.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 if settings.DEBUG:

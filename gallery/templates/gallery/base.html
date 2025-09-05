@@ -170,9 +170,14 @@
             padding: 20px;
             flex-grow: 1;
         }
-        .navbar-nav .nav-item:hover .dropdown-menu {
+        /* .navbar-nav .nav-item:hover .dropdown-menu {
+            display: block;
+        } */
+        /* open only the first-level dropdown when hovering Albums */
+        .navbar-nav > .nav-item.dropdown:hover > .dropdown-menu {
             display: block;
         }
+
         .dropdown-menu {
             left: auto;
             right: 0;
@@ -262,6 +267,92 @@
             color: #06ed95;
             border-color: #06ed95;
         }
+        .dropdown-submenu { 
+            position: relative; 
+        }
+        .dropdown-submenu > .submenu {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            margin-top: -0.25rem;
+            background-color: #1f1f1f;
+            border: none;
+            min-width: 220px;
+        }
+        /* modifier class to flip submenu left */
+        .dropdown-submenu.open-left > .submenu {
+            left: auto;
+            right: 100%;
+        }
+        .dropdown-submenu:hover > .submenu {
+            display: block; 
+        }
+        /* submenu arrow styling */
+        .dropdown-item.has-children {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            white-space: nowrap;   /* keep text and arrow on one line */
+        }
+        .dropdown-item.has-children::after {
+            content: "›";
+            margin-left: 0.5rem;
+            opacity: 0.6;
+            float: none; /* no float since flex handles positioning */
+        }
+        /* let submenus overflow the main dropdown; scroll only inside the submenu */
+        .dropdown-menu { 
+        overflow: visible;      /* IMPORTANT: don't clip the submenu */
+        }
+        .dropdown-submenu > .submenu {
+        max-height: calc(100vh - 16px);  /* keep inside viewport height */
+        overflow-y: auto;                 /* scroll long album lists */
+        z-index: 1051;                    /* ensure it renders over the parent */
+        }
+        /* Keep submenu within the viewport and wrap long titles */
+        .dropdown-submenu > .submenu {
+        max-height: calc(100vh - 16px);
+        overflow-y: auto;
+        /* NEW: keep width on-screen */
+        max-width: min(420px, calc(100vw - 40px));
+        overflow-x: hidden;
+        padding-right: 8px; /* avoids text under scrollbar */
+        }
+        .dropdown-submenu > .submenu .dropdown-item {
+        /* NEW: wrap long names instead of overflowing */
+        white-space: normal;
+        line-height: 1.3;
+        word-break: break-word;      /* break long continuous strings */
+        overflow-wrap: anywhere;     /* modern wrapping fallback */
+        }
+        /* allow nested menus to extend outside the first dropdown */
+        .navbar .dropdown-menu {
+        overflow: visible;          /* <- key change */
+        z-index: 1050;              /* above page content */
+        }
+        /* nested submenu panel */
+        .dropdown-submenu > .submenu {
+        z-index: 1060;              /* above the parent dropdown */
+        max-width: min(420px, calc(100vw - 40px));
+        max-height: calc(100vh - 16px);
+        overflow-y: auto;
+        overflow-x: hidden;
+        }
+        /* when JS positions the submenu, it'll set position:fixed */
+        .dropdown-submenu > .submenu.is-fixed {
+        position: fixed !important;
+        left: auto;  /* JS will set exact left/top */
+        right: auto;
+        top: auto;
+        max-height: calc(100vh - 16px);
+        overflow-y: auto;
+        z-index: 1060; /* above parent dropdown */
+        }
+
+        /* make sure the parent menu doesn't clip children */
+        .navbar .dropdown-menu { overflow: visible; z-index: 1050; }
+
     </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z5GC29SSN4"></script>
@@ -275,7 +366,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-transparent">
-        <a class="navbar-brand" href="{% url 'welcome' %}">TDM Photography</a>
+        <a class="navbar-brand" href="{% url 'gallery:welcome' %}">TDM Photography</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">
                 <div></div>
@@ -284,25 +375,56 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'welcome' %}">Home</a>
+                    <a class="nav-link" href="{% url 'gallery:welcome' %}">Home</a>
                 </li>
                 <li class="nav-item dropdown">
+                    <!-- <a class="nav-link dropdown-toggle" href="{% url 'gallery:folder_list' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+                    <a class="nav-link dropdown-toggle" href="#" id="albumsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Albums
+                    </a>
+                    <!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> -->
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="albumsDropdown">
+                        <a class="dropdown-item" href="{% url 'gallery:folder_list' %}">View all folders</a>
+                        <div class="dropdown-divider"></div>
+                
+                        {% for folder in NAV_FOLDERS %}
+                            <div class="dropdown-submenu">
+                                <a class="dropdown-item has-children" href="{% url 'gallery:folder_detail' slug=folder.slug %}">
+                                    {{ folder.name }}
+                                </a>
+                                {% with folder.albums.all as folder_albums %}
+                                    {% if folder_albums %}
+                                        <div class="submenu dropdown-menu">
+                                            {% for album in folder_albums %}
+                                                <a class="dropdown-item" href="{% url 'gallery:album_detail' pk=album.pk %}">
+                                                    {{ album.title }}
+                                                </a>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </li>
+                
+                <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Albums
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         {% for album in all_albums %}
-                        <a class="dropdown-item" href="{% url 'album_detail' album.pk %}">{{ album.title }}</a>
+                        <a class="dropdown-item" href="{% url 'gallery:album_detail' album.pk %}">{{ album.title }}</a>
                         {% endfor %}
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'album_list' %}">View All Albums</a>
+                        <a class="dropdown-item" href="{% url 'gallery:album_list' %}">View All Albums</a>
                     </div>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'gallery:all_photos' %}">All Photos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'all_photos' %}">All Photos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                    <a class="nav-link" href="{% url 'gallery:contact' %}">Contact</a>
                 </li>
             </ul>
         </div>
@@ -318,9 +440,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
-        $(document).ready(function() {
-            console.log("JavaScript loaded!");
-
+        $(document).ready(function () {
             $('.clickable-photo').on('click', function() {
                 var src = $(this).data('src');
                 var fullscreenContainer = $('#fullscreenImageContainer');
@@ -329,9 +449,7 @@
                 fullscreenContainer.show();
                 fullscreenContainer[0].scrollIntoView({behavior: "smooth"});
 
-                fullscreenContainer.css({
-                    'display': 'flex'
-                });
+                fullscreenContainer.css({'display': 'flex'});
             });
 
             $(document).on('keydown', function(event) {
@@ -343,8 +461,88 @@
             $('#fullscreenImageContainer').on('click', function() {
                 $(this).hide();
             });
-        });
+
+            var EDGE = 12; // margin from viewport edges
+
+            function positionSubmenu($folderItem) {
+                var $submenu = $folderItem.children('.submenu');
+                if (!$submenu.length) return;
+
+                // Make it measurable: show invisibly
+                var wasHidden = $submenu.css('display') === 'none';
+                if (wasHidden) $submenu.css({ display: 'block', visibility: 'hidden' });
+
+                // Switch to fixed positioning so we can clamp to the viewport
+                $submenu.addClass('is-fixed');
+
+                // Get rects
+                var triggerRect = $folderItem[0].getBoundingClientRect();
+                var menuRect    = $submenu[0].getBoundingClientRect();
+                var vw = window.innerWidth;
+                var vh = window.innerHeight;
+
+                // Default placement to the right of the folder item
+                var left = triggerRect.right;
+                var top  = triggerRect.top;
+
+                // If it would overflow right, place to the left
+                if (left + menuRect.width + EDGE > vw) {
+                left = triggerRect.left - menuRect.width;
+                }
+
+                // Clamp horizontally within the viewport
+                if (left < EDGE) left = EDGE;
+                if (left + menuRect.width + EDGE > vw) {
+                left = Math.max(EDGE, vw - EDGE - menuRect.width);
+                }
+
+                // Clamp vertically and give it a max height
+                var maxH = vh - EDGE * 2;
+                $submenu.css('max-height', maxH + 'px');
+
+                // If bottom would overflow, shift up as needed
+                var bottom = top + menuRect.height;
+                if (bottom + EDGE > vh) {
+                var overshoot = bottom + EDGE - vh;
+                top = Math.max(EDGE, top - overshoot);
+                }
+                // If it’s above the top, clamp down
+                if (top < EDGE) top = EDGE;
+
+                // Apply final position
+                $submenu.css({ left: left + 'px', top: top + 'px', visibility: 'visible' });
+
+                // If we temporarily showed it, leave it visible now (it’s supposed to be open)
+                // but clear the temporary flag styles we set earlier
+                if (wasHidden) $submenu.css({ display: 'block' });
+            }
+
+            function hideSubmenu($folderItem) {
+                var $submenu = $folderItem.children('.submenu');
+                $submenu.removeClass('is-fixed')
+                        .attr('style', '') // drop JS positioning so CSS can handle closed state
+                        .hide();           // hidden until next hover
+            }
+
+            // Show & position on hover
+            $('.dropdown-submenu').on('mouseenter', function () {
+                positionSubmenu($(this));
+            });
+
+            // Hide on leave
+            $('.dropdown-submenu').on('mouseleave', function () {
+                hideSubmenu($(this));
+            });
+
+            // Recalculate on resize (in case user resizes window while open)
+            $(window).on('resize', function () {
+                $('.dropdown-submenu:has(.submenu:visible)').each(function () {
+                positionSubmenu($(this));
+                });
+            });
+            });
     </script>
+
     {% block extra_js %}{% endblock %}
 </body>
 </html>

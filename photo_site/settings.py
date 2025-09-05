@@ -121,6 +121,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'photo_site.context_processor.custom_settings',
                 'photo_site.context_processor.all_albums',
+                "gallery.context_processors.nav_folders",
             ],
         },
     },
