@@ -71,7 +71,7 @@
 
             if (selectedPhotoIds.length > 0) {
                 const queryParams = new URLSearchParams({ photo_ids: selectedPhotoIds.join(',') });
-                const url = `{% url 'view_selected_photos' %}?${queryParams.toString()}`;
+                const url = `{% url 'gallery:view_selected_photos' %}?${queryParams.toString()}`;
                 console.log("Navigating to:", url);
                 window.location.href = url;
             } else {
